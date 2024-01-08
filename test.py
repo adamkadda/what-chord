@@ -1,9 +1,9 @@
-from helpers import note_to_int, get_intervals
+from helpers import note_to_int, get_intervals, get_name
 from itertools import permutations
 
-c_minor = ("C", "Eb", "G")
+input = ('Ab', 'C', 'D', 'G')
 
-inversions = list(permutations(c_minor))
+inversions = list(permutations(input))
 
 versions = []
 intervals = []
@@ -20,8 +20,16 @@ for version in versions:
 # generate names for each inversion
     # while retaining access to the inversion's alphabetic notation
 for i, interval in enumerate(intervals):
-    name = get_chord(interval, inversion[i])
-    chords[inversion[i]] = name
+    name = get_name(interval, inversions[i])
+    
+    if not name:
+        continue
+    
+    # at this point, add entry into 
+    chords[inversions[i]] = name
 
-# filter out empty inversions and sort remainder by probability
-cleaned = clean_chords(chords)
+# # filter out empty inversions and sort remainder by probability
+# cleaned = clean_chords(chords)
+
+for chord, name in chords.items():
+    print(f"{chord} : {name}")
