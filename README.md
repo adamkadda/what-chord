@@ -5,8 +5,8 @@ A user-friendly web app for naming chords with a piano keyboard UI.
 
 1. Make the actual chord identifying algorithm, turn it to code
   - **Working version made!**
-  - TODO: filter invalid inversions/intervals
-  - TODO: sort(?) chord names by goodness(?) lol
+  - filter invalid inversions/intervals
+  - sort(?) chord names by goodness(?) lol
 2. Make a simple working backend with flask in python
   - Decide on routing
   - Decide whether a db is necessary

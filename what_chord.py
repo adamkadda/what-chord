@@ -1,6 +1,6 @@
-def note_to_int(inversion: list[str]) -> list[dict]:
-    
-    int_notation = {
+from itertools import permutations
+
+ntoi = {
         'C': 0, 'B#': 0,
         'C#': 1, 'Db': 1,
         'D': 2,
@@ -15,43 +15,26 @@ def note_to_int(inversion: list[str]) -> list[dict]:
         'B': 11, 'Cb': 11
     }
 
-    pitches = tuple(int_notation[note] for note in inversion)
+itoa = {
+        1: 'b2',
+        2: '2',
+        5: '4',
+        6: '#4',
+        8: 'b6',
+        9: '6',
+        # 10
+        13: 'b9',
+        14: '9',
+        15: '#9',
+        16: 'b11',
+        17: '11',
+        18: '#11',
+        # 19
+        20: 'b13',
+        21: '13'
+    }
 
-    return pitches
-
-
-def get_intervals(pitches):
-
-    intervals = []
-
-    for i, note in enumerate(pitches):
-        if i == 0:
-            # assign root note
-            intervals.append(0)
-        
-        else:
-
-            prev = pitches[i - 1]
-
-            # if current note is 'lower' than prev
-            if note < prev:
-
-                # interval = prev_interval + (12 + note) - prev_note
-                val = intervals[i - 1] + (12 + note) - prev
-                intervals.append(val)
-
-            # else, note must be 'higher'
-            else:
-                # prev_interval + (note - prev_note)
-                val = intervals[i - 1] + (note - prev)
-                intervals.append(val)
-
-    return tuple(intervals)
-
-
-def get_name(intervals, notes):
-
-    atoi = {
+atoi = {
         'min-2': 1,
         'maj-2': 2,
         'min-3': 3,
@@ -77,53 +60,94 @@ def get_name(intervals, notes):
         'maj-14': 23
         # Skip 'double-octave': 24
     }
-    
-    itoa = {
-        1: 'b2',
-        2: '2',
-        5: '4',
-        6: '#4',
-        8: 'b6',
-        9: '6',
-        # 10
-        13: 'b9',
-        14: '9',
-        15: '#9',
-        16: 'b11',
-        17: '11',
-        18: '#11',
-        # 19
-        20: 'b13',
-        21: '13'
-    }
 
-    has_third = False
 
-    # check intervals
-    for interval in intervals:
+def clean_notes(notes):
 
-        if interval > 21:
+    tally = {}
+
+    cleaned = notes
+
+    for i, note in enumerate(notes):
+
+        # check for invalid notes
+        if not ntoi.get(note):
+            print(f"Invalid note: {note}")
             return None
+
+        # check for duplicates        
+        if note not in tally:
+            tally[note] = 1
+        else:
+            cleaned.pop(i)
+
+    return cleaned
+
+
+def ntoi(chord):
+    intval = tuple(ntoi[note] for note in chord)
+    return intval
+
+
+def get_intervals(integer_notes):
+
+    intervals = []
+
+    for i, note in enumerate(integer_notes):
+
+        # assign root note
+        if i == 0:
+            intervals.append(0)
         
-        # check for third
-        if interval >= 1 and interval <= 6:
-            has_third = True
+        else:
 
-    if not has_third:
-        return None
+            prev = integer_notes[i - 1]
+
+            # if current note is 'lower' than prev
+            if note < prev:
+
+                # interval = prev_interval + (12 + note) - prev_note
+                val = intervals[i - 1] + (12 + note) - prev
+                intervals.append(val)
+
+            # else, note must be 'higher'
+            else:
+                # prev_interval + (note - prev_note)
+                val = intervals[i - 1] + (note - prev)
+                intervals.append(val)
+
+    return intervals
 
 
+def check_inversion(inversion):
+    
+    third_or_sus = [1, 2, 3, 4, 5, 6]
+    
+    # check whether a third or sus exists in this inversion
+    for interval in inversion:
+        if interval in third_or_sus:
+            return True
+
+    return False
+
+
+def get_name(intervals, notes):
+    
+    # initialize chord attributes
     third = None
     fifth = False
     seventh = False
     ninth = False
     eleventh = False
 
+    # initialize chord name segments
     triad = None
     lead = ""
     sus = []
     add = []
 
+    # gigantic match case haha
+    # hopefully this isn't too ugly...
     for interval in intervals:
 
         match interval:
@@ -363,12 +387,58 @@ def get_name(intervals, notes):
                 # else (add 13)
                 add.append(itoa[21])
 
-
     root = notes[0]
     jsus = 'sus' + (' '.join(sus))
     jadd = '(' + (' '.join(add)) + ')'
 
+    # was unsure if format strings have `if else` functionality
     name = '{}{}{}{}{}'.format(root, triad if triad else "", lead if lead else "", jsus if sus else '', jadd if add else "")
 
     return name
-                        
+
+
+# TODO finish chord conciseness determination
+def judge_chord(name):
+    return ...
+
+
+def what_chord(notes):
+
+    notes = clean_notes(notes)
+
+    if not notes:
+        return None
+
+    # use itertools.permutations to generate permutations
+    perms = list(permutations(notes))
+
+    inversions = []
+    for perm in perms:
+
+        # convert perms into integer notation
+        iperm = ntoi(perm)
+
+        # then generate intervals (called inversions here)
+        inversions.append(get_intervals(iperm))
+
+    # {}'notes': ['C', 'Eb', 'G'], 'name': 'Cm', 'root': 'C', 'conciseness': 1}
+    chords = []
+
+    for i, inversion in enumerate(inversions):
+
+        # detect and skip invalid inversions with clean_inversions()
+        if not check_inversion(inversion):
+            continue
+
+        # store important information for db tables
+        perm = perms[i]
+        name = get_name(inversion, perm)
+        root = perm[0]
+        conciseness = judge_chord(name)
+
+        chord = {'notes': perm, 'name': name, 'root': root, 'conciseness': conciseness}
+
+        chords.append(chord)
+
+    return chords
+

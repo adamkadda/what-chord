@@ -1,7 +1,7 @@
 from helpers import note_to_int, get_intervals, get_name
 from itertools import permutations
 
-input = ('C', 'E', 'F#', 'Ab', 'B', 'Db')
+input = ('C', 'F', 'D#', 'F#')
 
 inversions = list(permutations(input))
 
