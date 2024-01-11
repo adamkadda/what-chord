@@ -71,7 +71,7 @@ def clean_notes(notes):
     for i, note in enumerate(notes):
 
         # check for invalid notes
-        if not ntoi.get(note):
+        if note not in ntoi:
             print(f"Invalid note: {note}")
             return None
 
@@ -84,7 +84,7 @@ def clean_notes(notes):
     return cleaned
 
 
-def ntoi(chord):
+def note_to_int(chord):
     intval = tuple(ntoi[note] for note in chord)
     return intval
 
@@ -394,12 +394,13 @@ def get_name(intervals, notes):
     # was unsure if format strings have `if else` functionality
     name = '{}{}{}{}{}'.format(root, triad if triad else "", lead if lead else "", jsus if sus else '', jadd if add else "")
 
-    return name
+    chord = {}
 
+    chord['name'] = name
+    chord['root'] = root
+    chord['conciseness'] = 1 + len(lead) + len(sus) + len(add)
 
-# TODO finish chord conciseness determination
-def judge_chord(name):
-    return ...
+    return chord
 
 
 def what_chord(notes):
@@ -416,13 +417,14 @@ def what_chord(notes):
     for perm in perms:
 
         # convert perms into integer notation
-        iperm = ntoi(perm)
+        iperm = note_to_int(perm)
 
         # then generate intervals (called inversions here)
         inversions.append(get_intervals(iperm))
 
     # {}'notes': ['C', 'Eb', 'G'], 'name': 'Cm', 'root': 'C', 'conciseness': 1}
     chords = []
+    names = []
 
     for i, inversion in enumerate(inversions):
 
@@ -432,11 +434,13 @@ def what_chord(notes):
 
         # store important information for db tables
         perm = perms[i]
-        name = get_name(inversion, perm)
-        root = perm[0]
-        conciseness = judge_chord(name)
+        chord = get_name(inversion, perm)
+        chord['inversion'] = perm
 
-        chord = {'notes': perm, 'name': name, 'root': root, 'conciseness': conciseness}
+        if chord['name'] in names:
+            continue            
+
+        names.append(chord['name'])
 
         chords.append(chord)
 
