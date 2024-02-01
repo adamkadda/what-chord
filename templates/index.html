@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="static/script.js" defer></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon_io/favicon-32x32.png">
+    <title>what-chord</title>
+</head>
+<body>
+    <header>
+        <div class="container-flex mtb-5">
+            <h1>what chord is that?</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container-flex mb-5">
+            <p>play some keys, and I'll try to name it</p>
+        </div>
+        <div class="container-flex">
+            <div data-note="C2" class="key white"></div>
+            <div data-note="C#2" class="key black"></div>
+            <div data-note="D2" class="key white"></div>
+            <div data-note="Eb2" class="key black"></div>
+            <div data-note="E2" class="key white"></div>
+            <div data-note="F2" class="key white"></div>
+            <div data-note="F#2" class="key black"></div>
+            <div data-note="G2" class="key white"></div>
+            <div data-note="Ab2" class="key black"></div>
+            <div data-note="A2" class="key white"></div>
+            <div data-note="Bb2" class="key black"></div>
+            <div data-note="B2" class="key white"></div>
+            <!-- octave -->
+            <div data-note="C3" class="key white"></div>
+            <div data-note="C#3" class="key black"></div>
+            <div data-note="D3" class="key white"></div>
+            <div data-note="Eb3" class="key black"></div>
+            <div data-note="E3" class="key white"></div>
+            <div data-note="F3" class="key white"></div>
+            <div data-note="F#3" class="key black"></div>
+            <div data-note="G3" class="key white"></div>
+            <div data-note="Ab3" class="key black"></div>
+            <div data-note="A3" class="key white"></div>
+            <div data-note="Bb3" class="key black"></div>
+            <div data-note="B3" class="key white"></div>
+            <!-- octave -->
+            <div data-note="C4" class="key white"></div>
+            <div data-note="C#4" class="key black"></div>
+            <div data-note="D4" class="key white"></div>
+            <div data-note="Eb4" class="key black"></div>
+            <div data-note="E4" class="key white"></div>
+            <div data-note="F4" class="key white"></div>
+            <div data-note="F#4" class="key black"></div>
+            <div data-note="G4" class="key white"></div>
+            <div data-note="Ab4" class="key black"></div>
+            <div data-note="A4" class="key white"></div>
+            <div data-note="Bb4" class="key black"></div>
+            <div data-note="B4" class="key white"></div>
+
+            <audio id="C2" src="static/notes/C2.wav" type="audio/wave"></audio>
+            <audio id="C#2" src="static/notes/Cs2.wav" type="audio/wave"></audio>
+            <audio id="D2" src="static/notes/D2.wav" type="audio/wave"></audio>
+            <audio id="Eb2" src="static/notes/Eb2.wav" type="audio/wave"></audio>
+            <audio id="E2" src="static/notes/E2.wav" type="audio/wave"></audio>
+            <audio id="F2" src="static/notes/F2.wav" type="audio/wave"></audio>
+            <audio id="F#2" src="static/notes/Fs2.wav" type="audio/wave"></audio>
+            <audio id="G2" src="static/notes/G2.wav" type="audio/wave"></audio>
+            <audio id="Ab2" src="static/notes/Ab2.wav" type="audio/wave"></audio>
+            <audio id="A2" src="static/notes/A2.wav" type="audio/wave"></audio>
+            <audio id="Bb2" src="static/notes/Bb2.wav" type="audio/wave"></audio>
+            <audio id="B2" src="static/notes/B2.wav" type="audio/wave"></audio>
+
+            <audio id="C3" src="static/notes/C3.wav" type="audio/wave"></audio>
+            <audio id="C#3" src="static/notes/Cs3.wav" type="audio/wave"></audio>
+            <audio id="D3" src="static/notes/D3.wav" type="audio/wave"></audio>
+            <audio id="Eb3" src="static/notes/Eb3.wav" type="audio/wave"></audio>
+            <audio id="E3" src="static/notes/E3.wav" type="audio/wave"></audio>
+            <audio id="F3" src="static/notes/F3.wav" type="audio/wave"></audio>
+            <audio id="F#3" src="static/notes/Fs3.wav" type="audio/wave"></audio>
+            <audio id="G3" src="static/notes/G3.wav" type="audio/wave"></audio>
+            <audio id="Ab3" src="static/notes/Ab3.wav" type="audio/wave"></audio>
+            <audio id="A3" src="static/notes/A3.wav" type="audio/wave"></audio>
+            <audio id="Bb3" src="static/notes/Bb3.wav" type="audio/wave"></audio>
+            <audio id="B3" src="static/notes/B3.wav" type="audio/wave"></audio>
+
+            <audio id="C4" src="static/notes/C4.wav" type="audio/wave"></audio>
+            <audio id="C#4" src="static/notes/Cs4.wav" type="audio/wave"></audio>
+            <audio id="D4" src="static/notes/D4.wav" type="audio/wave"></audio>
+            <audio id="Eb4" src="static/notes/Eb4.wav" type="audio/wave"></audio>
+            <audio id="E4" src="static/notes/E4.wav" type="audio/wave"></audio>
+            <audio id="F4" src="static/notes/F4.wav" type="audio/wave"></audio>
+            <audio id="F#4" src="static/notes/Fs4.wav" type="audio/wave"></audio>
+            <audio id="G4" src="static/notes/G4.wav" type="audio/wave"></audio>
+            <audio id="Ab4" src="static/notes/Ab4.wav" type="audio/wave"></audio>
+            <audio id="A4" src="static/notes/A4.wav" type="audio/wave"></audio>
+            <audio id="Bb4" src="static/notes/Bb4.wav" type="audio/wave"></audio>
+            <audio id="B4" src="static/notes/B4.wav" type="audio/wave"></audio>
+        </div>
+        <div class="container-flex mt-5 mb-5">
+            <button id="search" class="button">Search</button>
+        </div>
+    </main>
+    <footer>
+        <div class="container-flex mtb-5">
+            <h3>made with love</h3>
+        </div>
+    </footer>
+</body>
+</html>

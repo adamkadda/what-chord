@@ -121,6 +121,10 @@ def get_intervals(integer_notes):
 
 def check_inversion(inversion):
     
+    for interval in inversion:
+        if interval > 21:
+            return False
+
     third_or_sus = [1, 2, 3, 4, 5, 6]
     
     # check whether a third or sus exists in this inversion
