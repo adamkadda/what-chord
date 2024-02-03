@@ -62,6 +62,9 @@ function submitNotes() {
         let notes = [];
         for (const [key, value] of selected) {
             let note = std.get(key);
+
+            // TODO: handle (note == undefined)
+
             notes.push(note);
         }
         

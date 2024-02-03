@@ -122,7 +122,9 @@ def get_intervals(integer_notes):
 def check_inversion(inversion):
     
     for interval in inversion:
-        if interval > 21:
+        if interval == 19:
+            return False
+        elif interval > 21:
             return False
 
     third_or_sus = [1, 2, 3, 4, 5, 6]
@@ -402,7 +404,11 @@ def get_name(intervals, notes):
 
     chord['name'] = name
     chord['root'] = root
-    chord['conciseness'] = 1 + len(lead) + len(sus) + len(add)
+    chord['conciseness'] = len(sus) + len(add)
+
+    # check if lead is not empty, increment conciseness accordingly
+    if lead != "" or lead != None:
+        chord['conciseness'] += 1
 
     return chord
 
