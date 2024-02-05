@@ -79,6 +79,13 @@ function submitNotes() {
             "headers": {"Content-Type": "application/json"},
             "body": JSON.stringify(data),
         })
+        .then(response => response.text())
+        .then(htmlContent => {
+            document.getElementById("results").innerHTML = htmlContent;
+        })
+        .catch(error => {
+            console.error('Error: ', error);
+        })
 
     }
 }

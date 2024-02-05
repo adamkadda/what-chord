@@ -59,23 +59,24 @@ def index():
                 cur.execute(query, chord)
                     
             con.commit()
-            con.close()
             print(f'table {key} updated')
 
-        else:
-            print('EXISTS!')
+        query = f"""
+            SELECT name, conciseness 
+            FROM {key}
+            ORDER BY conciseness, root
+        """
 
-            query = f"""
-                SELECT * 
-                FROM {key}
-                ORDER BY conciseness, root
-            """
+        res = cur.execute(query)
 
-            res = cur.execute(query)
+        names = res.fetchall()
 
-            for row in res.fetchall():
-                print(row)
+        for row in names:
+            print(row)
 
-            con.close()
+        con.close()
+        
+        return render_template('results.html', res=names)
+        # return '<h1>returned</h1>'
 
     return render_template('index.html')
