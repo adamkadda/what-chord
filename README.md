@@ -1,5 +1,5 @@
 # what-chord
-A user-friendly web app for naming chords with a piano keyboard UI.
+A simple web app for naming chords with a piano UI!
 
 ## Steps I'm taking to get this done
 
