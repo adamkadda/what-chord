@@ -1,6 +1,6 @@
 # what-chord
 
-#### Video Demo: https://youtu.be/G5jOgf9mjTw
+#### Video Demo: https://youtu.be/GradjQ-mMX4
 
 #### Description:
 
@@ -125,4 +125,6 @@ Finally, the fetch API is used to send a `POST` request to the backend, but firs
 
 Lastly, the response from the backend is handled by replacing the contents of the `results` div with the HTML response.
 
-I had a lot of fun with this project, and I'm looking forward to making new projects, but also improving this chord naming web app in the future. 
+I had a lot of fun with this project, and I'm looking forward to making new projects, but also improving this chord naming web app in the future.
+
+Long DEMO: https://www.youtube.com/watch?v=G5jOgf9mjTw&t=182s
