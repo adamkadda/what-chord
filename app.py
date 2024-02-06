@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template, jsonify
-from markupsafe import escape
 from what_chord import what_chord, clean_notes, note_to_int
 import sqlite3
 
